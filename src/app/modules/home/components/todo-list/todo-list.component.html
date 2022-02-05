@@ -1,8 +1,8 @@
-<section>
-  <ul>
-    <li>
-      <input type="checkbox" />
-      <input type="text" />
+<section [ngClass]="{ loading: !taskList.length }">
+  <ul *ngIf="taskList.length">
+    <li *ngFor="let item of taskList; let i = index">
+      <input type="checkbox" [(ngModel)]="item.checked" />
+      <input type="text" [(ngModel)]="item.name" />
 
       <button>
         <img src="assets/icons/trash.svg" alt="excluir" />
@@ -12,4 +12,6 @@
 </section>
 
 <app-todo-input-add-items></app-todo-input-add-items>
-<app-todo-button-delete-all></app-todo-button-delete-all>
+<app-todo-button-delete-all
+  *ngIf="taskList.length"
+></app-todo-button-delete-all>
