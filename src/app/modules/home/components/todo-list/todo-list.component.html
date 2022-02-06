@@ -2,16 +2,23 @@
   <ul *ngIf="taskList.length">
     <li *ngFor="let item of taskList; let i = index">
       <input type="checkbox" [(ngModel)]="item.checked" />
-      <input type="text" [(ngModel)]="item.name" />
+      <input
+        type="text"
+        (keyup)="validationInputChange(item.name, i)"
+        [(ngModel)]="item.name"
+      />
 
-      <button>
+      <button (click)="deleteTask(i)">
         <img src="assets/icons/trash.svg" alt="excluir" />
       </button>
     </li>
   </ul>
 </section>
 
-<app-todo-input-add-items></app-todo-input-add-items>
+<app-todo-input-add-items
+  (emitAddItem)="getEmitNewTask($event)"
+></app-todo-input-add-items>
 <app-todo-button-delete-all
   *ngIf="taskList.length"
+  (click)="deleteAllTasks()"
 ></app-todo-button-delete-all>
